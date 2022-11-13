@@ -334,6 +334,9 @@ void DatabaseManager::deleteData(int codigoFuncionario) {
 
   for (size_t i = 0; i < funcionariosCadastrados.size(); i++) {
     if (funcionariosCadastrados[i]->getCodigo() == codigoFuncionario) {
+      if (funcionariosCadastrados[i]->getTipo() == 3 || funcionariosCadastrados[i]->getTipo() == 4) {
+        break;
+      }
       index = i;
       break;
     }
