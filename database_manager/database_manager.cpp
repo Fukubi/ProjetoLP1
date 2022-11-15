@@ -122,7 +122,7 @@ void DatabaseManager::saveData(Funcionario *funcionario, std::string filename) {
 
     presidenteFile << "\n"
                    << presidente->getCodigo() << "," << presidente->getForm()
-                   << presidente->getMax();
+                   << "," << presidente->getMax();
 
     presidenteFile.close();
   }
@@ -334,7 +334,9 @@ void DatabaseManager::deleteData(int codigoFuncionario) {
 
   for (size_t i = 0; i < funcionariosCadastrados.size(); i++) {
     if (funcionariosCadastrados[i]->getCodigo() == codigoFuncionario) {
-      if (funcionariosCadastrados[i]->getTipo() == 3 || funcionariosCadastrados[i]->getTipo() == 4) {
+      if (funcionariosCadastrados[i]->getTipo() == 3 ||
+          funcionariosCadastrados[i]->getTipo() == 4) {
+        std::cerr << "Nao e permitido deletar um gerente ou presidente\n";
         break;
       }
       index = i;
@@ -344,14 +346,14 @@ void DatabaseManager::deleteData(int codigoFuncionario) {
 
   if (index != -1) {
     funcionariosCadastrados.erase(funcionariosCadastrados.begin() + index);
-  }
 
-  remove(DatabaseManager::FUNCIONARIO_FILENAME.c_str());
-  remove(DatabaseManager::DIRETOR_FILENAME.c_str());
-  remove(DatabaseManager::GERENTE_FILENAME.c_str());
-  remove(DatabaseManager::PRESIDENTE_FILENAME.c_str());
+    remove(DatabaseManager::FUNCIONARIO_FILENAME.c_str());
+    remove(DatabaseManager::DIRETOR_FILENAME.c_str());
+    remove(DatabaseManager::GERENTE_FILENAME.c_str());
+    remove(DatabaseManager::PRESIDENTE_FILENAME.c_str());
 
-  for (Funcionario *f : funcionariosCadastrados) {
-    DatabaseManager::saveData(f);
+    for (Funcionario *f : funcionariosCadastrados) {
+      DatabaseManager::saveData(f);
+    }
   }
 }
