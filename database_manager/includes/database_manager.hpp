@@ -44,13 +44,13 @@ class DatabaseManager {
   static std::vector<Funcionario *> listData();
 
   /**
-    Função para atualizar um funcionário no arquivo.
+    @brief Função para atualizar um funcionário no arquivo.
     Essa função atualiza o funcionário que tiver o mesmo código
     do funcionário enviado como parâmetro
 
     @param funcionario Funcionário e seus dados para ser atualizado
   */
-  static void updateData(Funcionario *funcionario);
+  static void updateData(Funcionario *funcionario, int codigo);
 
   /**
     Função para deletar um funcionário no arquivo

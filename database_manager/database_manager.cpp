@@ -277,12 +277,12 @@ std::vector<Funcionario *> DatabaseManager::listData() {
   return funcionarios;
 }
 
-void DatabaseManager::updateData(Funcionario *funcionario) {
+void DatabaseManager::updateData(Funcionario *funcionario, int codigo) {
   std::vector<Funcionario *> funcionariosCadastrados =
       DatabaseManager::listData();
 
   for (size_t i = 0; i < funcionariosCadastrados.size(); i++) {
-    if (funcionariosCadastrados[i]->getCodigo() != funcionario->getCodigo()) {
+    if (funcionariosCadastrados[i]->getCodigo() != codigo) {
       continue;
     }
 
@@ -309,6 +309,7 @@ void DatabaseManager::updateData(Funcionario *funcionario) {
           ->setMax(dynamic_cast<Presidente *>(funcionario)->getMax());
     }
 
+    funcionariosCadastrados[i]->setCodigo(codigo);
     funcionariosCadastrados[i]->setNome(funcionario->getNome());
     funcionariosCadastrados[i]->setDataIngresso(funcionario->getDataIngresso());
     funcionariosCadastrados[i]->setEndereco(funcionario->getEndereco());

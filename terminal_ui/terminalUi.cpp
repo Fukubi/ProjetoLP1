@@ -169,7 +169,7 @@ void TerminalUi::atualizarFuncionario() {
   std::vector<Funcionario *> funcionarios = DatabaseManager::listData();
 
   Funcionario *funcionario;
-  int codigo, tipo, dia, mes, ano;
+  int codigo, tipo, dia, mes, ano, codigoAntigo;
   std::string nome, endereco, telefone, desig;
   float salario;
 
@@ -183,6 +183,8 @@ void TerminalUi::atualizarFuncionario() {
       break;
     }
   }
+
+  codigoAntigo = codigo;
 
   std::cout << "Digite o novo codigo do funcionario [-1 para nao alterar]: ";
   std::cin >> codigo;
@@ -349,6 +351,7 @@ void TerminalUi::atualizarFuncionario() {
     }
   }
 
+  std::cout << codigo << std::endl;
   funcionario->setCodigo(codigo);
   funcionario->setNome(nome);
   funcionario->setEndereco(endereco);
@@ -356,8 +359,7 @@ void TerminalUi::atualizarFuncionario() {
   funcionario->setDataIngresso(dia, mes, ano);
   funcionario->setSalario(salario);
 
-  DatabaseManager::updateData(funcionario);
-  delete funcionario;
+  DatabaseManager::updateData(funcionario, codigoAntigo);
 }
 
 void TerminalUi::excluirFuncionario() {
